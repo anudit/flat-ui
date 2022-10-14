@@ -48,8 +48,8 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@githubocto/flat-ui",
-  "author": "GitHub OCTO",
+  "name": "@anudit/flat-ui",
+  "author": "Anudit Nagar <nagaranudit@gmail.com>",
   "module": "dist/flat-ui.esm.js",
   "size-limit": [
     {

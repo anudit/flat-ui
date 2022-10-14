@@ -583,6 +583,9 @@ function generateSchema(data: any[]) {
 
       if (!value && value !== 0) return [metric, 'string'];
 
+      if(/^0x[a-fA-F0-9]{40}$/g.test((value))) return [metric, 'string']; // Eth Address
+      if(/^0x[a-fA-F0-9]{64}$/g.test((value))) return [metric, 'string']; // Eth Txn Hash
+
       const isDate = (value: any) => {
         try {
           if (typeof value === 'string') {
@@ -703,6 +706,7 @@ function generateSchema(data: any[]) {
 }
 
 const parseData = (data: any, cellTypes: Record<string, string>) => {
+  console.log(data, cellTypes);
   const columnParseFunctions = Object.keys(cellTypes).map((columnName) => {
     const cellType = cellTypes[columnName];
     // @ts-ignore
