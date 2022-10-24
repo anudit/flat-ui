@@ -35,6 +35,7 @@ import { CategoryCell } from './components/cells/category';
 import { StringFilter } from './components/filters/string';
 import { CategoryFilter } from './components/filters/category';
 import { RangeFilter } from './components/filters/range';
+import { AddressCell } from './components/cells/address';
 
 const immer = <
   T extends State,
@@ -583,7 +584,7 @@ function generateSchema(data: any[]) {
 
       if (!value && value !== 0) return [metric, 'string'];
 
-      if(/^0x[a-fA-F0-9]{40}$/g.test((value))) return [metric, 'string']; // Eth Address
+      if(/^0x[a-fA-F0-9]{40}$/g.test((value))) return [metric, 'address']; // Eth Address
       if(/^0x[a-fA-F0-9]{64}$/g.test((value))) return [metric, 'string']; // Eth Txn Hash
 
       const isDate = (value: any) => {
@@ -706,7 +707,7 @@ function generateSchema(data: any[]) {
 }
 
 const parseData = (data: any, cellTypes: Record<string, string>) => {
-  console.log(data, cellTypes);
+  // console.log(data, cellTypes);
   const columnParseFunctions = Object.keys(cellTypes).map((columnName) => {
     const cellType = cellTypes[columnName];
     // @ts-ignore
@@ -798,6 +799,13 @@ export const cellTypeMap = {
   },
   color: {
     cell: ColorCell,
+    filter: StringFilter,
+    format: (d: string) => d,
+    shortFormat: (d: string) => d,
+    sortValueType: 'string',
+  },
+  address: {
+    cell: AddressCell,
     filter: StringFilter,
     format: (d: string) => d,
     shortFormat: (d: string) => d,
