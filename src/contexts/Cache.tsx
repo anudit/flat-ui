@@ -1,5 +1,5 @@
 import { Dictionary } from "lodash";
-import React, {useState} from "react";
+import React from "react";
 
 interface CacheProps {
     children: React.ReactNode;
@@ -24,8 +24,8 @@ export const cacheContext = React.createContext<any>({});
 
 export const CacheProvider = ({children}: CacheProps) => {
 
-    let [ensCache, setEnsCache] = useState<Dictionary<EnsResp>>({});
-    let [queryCache, setQueryCache] = useState<Dictionary<TokenDeets>>({});
+    let [ensCache, setEnsCache] = React.useState<Dictionary<EnsResp>>({});
+    let [queryCache, setQueryCache] = React.useState<Dictionary<TokenDeets>>({});
 
     async function getEnsData(addressOrEns: string){
         try {

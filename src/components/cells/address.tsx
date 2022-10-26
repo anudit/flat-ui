@@ -38,9 +38,9 @@ export function AddressCell(props: AddressCellProps) {
           title={props.rawValue}
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
-                tokenData?.name ? `${tokenData?.name} ` : " " +
-                ens ? `${ens} `: " "  +
-                props.formattedValue
+                (tokenData?.name ? `<p style="font-weight:500;display:inline;">${tokenData?.name}</p> ` : " ")
+                .concat(ens ? `<p style="font-weight:500;display:inline;">${ens}</p> `: " ")
+                .concat(props.formattedValue)
               ),
           }}
         />
