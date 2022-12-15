@@ -79,7 +79,6 @@ export function CategoryFilter(props: CategoryFilterProps) {
             <ul
               {...getMenuProps()}
               tw="absolute min-w-full space-y-1 py-2 bg-white shadow-md z-10"
-              className="fade-up-sm-in"
               style={{ marginTop: 1 }}
             >
               {(props.possibleValues || []).map(

@@ -424,7 +424,7 @@ export function Grid(props: GridProps) {
     );
 
   return (
-    <div tw="flex flex-col h-full bg-white" className="fade-up-in">
+    <div tw="flex flex-col h-full bg-white">
       {/* <div tw="bg-white h-10 flex px-4 border-b border-gray-200">
         <Toggle onChange={handleShowFiltersChange} checked={showFilters}>
           Show Filters
