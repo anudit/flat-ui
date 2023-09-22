@@ -81,7 +81,7 @@ export const CacheProvider = ({children}: CacheProps) => {
             return queryCache[address.toLowerCase()];
         }
         else {
-            let data = await fetch(`https://rpc.omnid.space/tokendeets/${address}`).then(e=>e.json());
+            let data = await fetch(`https://rpc.omnid.io/tokendeets/${address}`).then(e=>e.json());
             let resp = data as Array<TokenDeets>;
             if (resp.length > 0){
                 setQueryCache(e=>{
