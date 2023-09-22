@@ -1,5 +1,5 @@
 {
-  "version": "0.14.5",
+  "version": "0.14.4",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -107,7 +107,6 @@
     "dompurify": "^2.4.1",
     "downshift": "^6.1.1",
     "immer": "^9.0.16",
-    "is-ipfs": "^8.0.1",
     "linkify-it": "^3.0.3",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",

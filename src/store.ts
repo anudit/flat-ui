@@ -36,8 +36,6 @@ import { StringFilter } from './components/filters/string';
 import { CategoryFilter } from './components/filters/category';
 import { RangeFilter } from './components/filters/range';
 import { AddressCell } from './components/cells/address';
-import { cid } from 'is-ipfs'
-import { MultihashCell } from './components/cells/multihash';
 
 const immer = <
   T extends State,
@@ -588,7 +586,6 @@ function generateSchema(data: any[]) {
 
       if(/^0x[a-fA-F0-9]{40}$/g.test((value))) return [metric, 'address']; // Eth Address
       if(/^0x[a-fA-F0-9]{64}$/g.test((value))) return [metric, 'string']; // Eth Txn Hash
-      if(cid((value))) return [metric, 'multihash']; // IPFS cid
 
       const isDate = (value: any) => {
         try {
@@ -809,13 +806,6 @@ export const cellTypeMap = {
   },
   address: {
     cell: AddressCell,
-    filter: StringFilter,
-    format: (d: string) => d,
-    shortFormat: (d: string) => d,
-    sortValueType: 'string',
-  },
-  multihash: {
-    cell: MultihashCell,
     filter: StringFilter,
     format: (d: string) => d,
     shortFormat: (d: string) => d,

@@ -22,32 +22,27 @@ export interface TokenDeets {
 
 export const cacheContext = React.createContext<any>({});
 
-export const CacheProvider = ({ children }: CacheProps) => {
+export const CacheProvider = ({children}: CacheProps) => {
 
     let [ensCache, setEnsCache] = React.useState<Dictionary<EnsResp>>({});
     let [queryCache, setQueryCache] = React.useState<Dictionary<TokenDeets>>({});
 
-    async function getEnsData(addressOrEns: string) {
+    async function getEnsData(addressOrEns: string){
         try {
 
-            if (Object.keys(ensCache).includes(addressOrEns.toLowerCase()) === true) {
+            if (Object.keys(ensCache).includes(addressOrEns.toLowerCase()) === true){
                 // console.log('using cache', addressOrEns) // Enable to see the pref improvements
                 return ensCache[addressOrEns];
             }
             else {
-                let resp = await fetch(`https://api.ensideas.com/ens/resolve/${addressOrEns.toLowerCase()}`).then(r => r.json());
-                setEnsCache(e => {
-                    try {
-                        let data = e;
-                        data[resp?.address.toLowerCase()] = resp;
-                        if (resp?.name != null) {
-                            data[resp?.name.toLowerCase()] = resp;
-                        }
-                        return data;
-
-                    } catch (error) {
-                        console.log('flat-ui: ens cache update error')
+                let resp = await fetch(`https://api.ensideas.com/ens/resolve/${addressOrEns.toLowerCase()}`).then(r=>r.json());
+                setEnsCache(e=>{
+                    let data = e;
+                    data[resp?.address.toLowerCase()] = resp;
+                    if (resp?.name != null){
+                        data[resp?.name.toLowerCase()] = resp;
                     }
+                    return data;
                 })
                 return resp;
             }
@@ -58,10 +53,10 @@ export const CacheProvider = ({ children }: CacheProps) => {
         }
     }
 
-    async function addressToEns(address: string) {
+    async function addressToEns(address: string){
         let resp = await getEnsData(address);
 
-        if (Boolean(resp?.name) === false) {
+        if (Boolean(resp?.name) === false){
             return false;
         }
         else {
@@ -69,10 +64,10 @@ export const CacheProvider = ({ children }: CacheProps) => {
         }
     }
 
-    async function ensToAddress(ensAddress: string) {
+    async function ensToAddress(ensAddress: string){
         let resp = await getEnsData(ensAddress);
 
-        if (Boolean(resp?.address) === false) {
+        if (Boolean(resp?.address) === false){
             return false;
         }
         else {
@@ -80,16 +75,16 @@ export const CacheProvider = ({ children }: CacheProps) => {
         }
     }
 
-    async function getTokenDeets(address: string) {
-        if (Object.keys(queryCache).includes(address.toLowerCase()) === true) {
+    async function getTokenDeets(address: string){
+        if (Object.keys(queryCache).includes(address.toLowerCase()) === true){
             // console.log('using queryCache', address) // Enable to see the pref improvements
             return queryCache[address.toLowerCase()];
         }
         else {
-            let data = await fetch(`https://rpc.omnid.io/tokendeets/${address}`).then(e => e.json());
+            let data = await fetch(`https://rpc.omnid.space/tokendeets/${address}`).then(e=>e.json());
             let resp = data as Array<TokenDeets>;
-            if (resp.length > 0) {
-                setQueryCache(e => {
+            if (resp.length > 0){
+                setQueryCache(e=>{
                     let data = e;
                     data[resp[0].address.toLowerCase()] = resp[0];
                     return data;
@@ -103,7 +98,7 @@ export const CacheProvider = ({ children }: CacheProps) => {
     }
 
     return (
-        <cacheContext.Provider value={{ getEnsData, addressToEns, ensToAddress, getTokenDeets }}>
+        <cacheContext.Provider value={{getEnsData, addressToEns, ensToAddress, getTokenDeets }}>
             {children}
         </cacheContext.Provider>
     )
